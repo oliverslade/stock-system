@@ -2,11 +2,12 @@ package broker.models.stocks;
 
 import broker.models.trades.TradeRecord;
 import broker.utils.TestUtils;
-import java.math.BigDecimal;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
+
+import java.math.BigDecimal;
 
 /**
  * A test class for {@link broker.models.stocks.Stock}.
@@ -69,7 +70,7 @@ public class StockTest {
    */
   @Test
   public void testSetAndGetPrice() {
-    final BigDecimal value = TestUtils.getRamdamBigDecimal();
+    final BigDecimal value = TestUtils.getRandomBigDecimal();
     this.stock.setPrice(value);
     Assert.assertEquals(value, this.stock.getPrice());
   }
@@ -86,7 +87,7 @@ public class StockTest {
    */
   @Test
   public void testSetAndGetParValue() {
-    final BigDecimal value = TestUtils.getRamdamBigDecimal();
+    final BigDecimal value = TestUtils.getRandomBigDecimal();
     this.stock.setParValue(value);
     Assert.assertEquals(value, this.stock.getParValue());
   }
@@ -103,7 +104,7 @@ public class StockTest {
    */
   @Test
   public void testSetAndGetLastDividend() {
-    final BigDecimal value = TestUtils.getRamdamBigDecimal();
+    final BigDecimal value = TestUtils.getRandomBigDecimal();
     this.stock.setLastDividend(value);
     Assert.assertEquals(value, this.stock.getLastDividend());
   }

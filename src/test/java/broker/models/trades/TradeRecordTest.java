@@ -1,13 +1,14 @@
 package broker.models.trades;
 
 import broker.utils.TestUtils;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.Random;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
 
 /**
  * Tests for {@link broker.models.trades.TradeRecord}.
@@ -106,7 +107,7 @@ public class TradeRecordTest {
    */
   @Test
   public void testAndGetPrice() {
-    final BigDecimal price = TestUtils.getRamdamBigDecimal();
+    final BigDecimal price = TestUtils.getRandomBigDecimal();
     this.tradeRecord.setPrice(price);
     Assert.assertEquals(price, this.tradeRecord.getPrice());
   }
