@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="broker.models.trades.TradeRecordTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2019-07-24T12:10:29" hostname="CPX-HB24ZCWLXFO" time="0.003">
+  <properties/>
+  <testcase name="testAndGetPrice" classname="broker.models.trades.TradeRecordTest" time="0.001"/>
+  <testcase name="testSetAndGetStockSymbol" classname="broker.models.trades.TradeRecordTest" time="0.0"/>
+  <testcase name="testSetAndGetQuantity" classname="broker.models.trades.TradeRecordTest" time="0.0"/>
+  <testcase name="testSetAndGetIndicator" classname="broker.models.trades.TradeRecordTest" time="0.001"/>
+  <testcase name="testSetAndGetTimeStamp" classname="broker.models.trades.TradeRecordTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
