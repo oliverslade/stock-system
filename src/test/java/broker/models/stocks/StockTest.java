@@ -69,7 +69,7 @@ public class StockTest {
    */
   @Test
   public void testSetAndGetPrice() {
-    final BigDecimal value = TestUtils.getRamdamBigDecimal();
+    final BigDecimal value = TestUtils.getRandomBigDecimal();
     this.stock.setPrice(value);
     Assert.assertEquals(value, this.stock.getPrice());
   }
@@ -86,7 +86,7 @@ public class StockTest {
    */
   @Test
   public void testSetAndGetParValue() {
-    final BigDecimal value = TestUtils.getRamdamBigDecimal();
+    final BigDecimal value = TestUtils.getRandomBigDecimal();
     this.stock.setParValue(value);
     Assert.assertEquals(value, this.stock.getParValue());
   }
@@ -103,7 +103,7 @@ public class StockTest {
    */
   @Test
   public void testSetAndGetLastDividend() {
-    final BigDecimal value = TestUtils.getRamdamBigDecimal();
+    final BigDecimal value = TestUtils.getRandomBigDecimal();
     this.stock.setLastDividend(value);
     Assert.assertEquals(value, this.stock.getLastDividend());
   }

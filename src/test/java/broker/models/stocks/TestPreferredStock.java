@@ -29,7 +29,7 @@ public class TestPreferredStock {
    */
   @Test
   public void testSetAndGetFixedDividend() {
-    final BigDecimal value = TestUtils.getRamdamBigDecimal();
+    final BigDecimal value = TestUtils.getRandomBigDecimal();
     this.stock.setFixedDividend(value);
     Assert.assertEquals(value, this.stock.getFixedDividend());
   }

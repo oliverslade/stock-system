@@ -106,7 +106,7 @@ public class TradeRecordTest {
    */
   @Test
   public void testAndGetPrice() {
-    final BigDecimal price = TestUtils.getRamdamBigDecimal();
+    final BigDecimal price = TestUtils.getRandomBigDecimal();
     this.tradeRecord.setPrice(price);
     Assert.assertEquals(price, this.tradeRecord.getPrice());
   }
