@@ -7,14 +7,20 @@ import broker.models.trades.TradeRecord;
 import broker.services.contracts.StockManagementService;
 import broker.services.impls.TradeServiceImpl;
 import broker.utils.TestUtils;
-import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 
+import static org.junit.Assert.assertEquals;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class TradeServiceImplTest {
 
   @Autowired private TradeServiceImpl tradeService;
@@ -40,11 +46,11 @@ public class TradeServiceImplTest {
     this.tradeService.recordTrade(
         TestUtils.TEST_COMMON_STOCK, timestamp, quantity, BuySellEnum.BUY, price);
     final TradeRecord record = stock.getTradeRecords().get(0);
-    Assert.assertEquals(TestUtils.TEST_COMMON_STOCK, record.getStockSymbol());
-    Assert.assertEquals(timestamp, record.getTimestamp());
-    Assert.assertEquals(quantity, record.getQuantity());
-    Assert.assertEquals(price, record.getPrice());
-    Assert.assertEquals(BuySellEnum.BUY, record.getIndicator());
+    assertEquals(TestUtils.TEST_COMMON_STOCK, record.getStockSymbol());
+    assertEquals(timestamp, record.getTimestamp());
+    assertEquals(quantity, record.getQuantity());
+    assertEquals(price, record.getPrice());
+    assertEquals(BuySellEnum.BUY, record.getIndicator());
   }
 
   /**

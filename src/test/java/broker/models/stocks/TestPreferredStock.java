@@ -1,11 +1,10 @@
 package broker.models.stocks;
 
 import broker.utils.TestUtils;
+import java.math.BigDecimal;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.math.BigDecimal;
 
 public class TestPreferredStock {
 

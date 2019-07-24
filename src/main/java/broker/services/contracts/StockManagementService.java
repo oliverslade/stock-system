@@ -1,7 +1,6 @@
 package broker.services.contracts;
 
 import broker.models.stocks.Stock;
-
 import java.util.Map;
 
 public interface StockManagementService {

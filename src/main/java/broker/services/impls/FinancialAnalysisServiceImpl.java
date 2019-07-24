@@ -10,6 +10,7 @@ import broker.services.contracts.FinancialAnalysisService;
 import broker.services.contracts.StockManagementService;
 import broker.services.contracts.TradeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -17,6 +18,7 @@ import java.util.List;
 
 import static broker.constants.ServiceConstants.PRECISION_SCALE;
 
+@Service
 public class FinancialAnalysisServiceImpl implements FinancialAnalysisService {
 
   @Autowired private StockManagementService stockManagementService;

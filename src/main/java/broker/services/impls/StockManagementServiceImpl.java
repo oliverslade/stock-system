@@ -3,10 +3,12 @@ package broker.services.impls;
 import broker.exceptions.BusinessException;
 import broker.models.stocks.Stock;
 import broker.services.contracts.StockManagementService;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Service
 public class StockManagementServiceImpl implements StockManagementService {
 
   private final Map<String, Stock> stockMap;

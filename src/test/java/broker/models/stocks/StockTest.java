@@ -2,12 +2,11 @@ package broker.models.stocks;
 
 import broker.models.trades.TradeRecord;
 import broker.utils.TestUtils;
+import java.math.BigDecimal;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-
-import java.math.BigDecimal;
 
 /**
  * A test class for {@link broker.models.stocks.Stock}.

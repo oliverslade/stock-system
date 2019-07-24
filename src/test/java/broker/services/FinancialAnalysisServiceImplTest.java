@@ -9,14 +9,20 @@ import broker.services.contracts.StockManagementService;
 import broker.services.contracts.TradeService;
 import broker.services.impls.FinancialAnalysisServiceImpl;
 import broker.utils.TestUtils;
-import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 
+import static org.junit.Assert.assertEquals;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class FinancialAnalysisServiceImplTest {
 
   @Autowired private FinancialAnalysisServiceImpl analysisService;
@@ -44,7 +50,7 @@ public class FinancialAnalysisServiceImplTest {
     commonStock.setLastDividend(new BigDecimal(23));
     final BigDecimal result =
         this.analysisService.getDividendYield(TestUtils.TEST_COMMON_STOCK, new BigDecimal(130));
-    Assert.assertEquals(new BigDecimal("0.177"), result);
+    assertEquals(new BigDecimal("0.177"), result);
   }
 
   /**
@@ -67,7 +73,7 @@ public class FinancialAnalysisServiceImplTest {
     preferredStock.setParValue(new BigDecimal(100));
     final BigDecimal result =
         this.analysisService.getDividendYield(TestUtils.TEST_PREFERRED_STOCK, new BigDecimal(130));
-    Assert.assertEquals(new BigDecimal("0.015"), result);
+    assertEquals(new BigDecimal("0.015"), result);
   }
 
   /**
@@ -109,7 +115,7 @@ public class FinancialAnalysisServiceImplTest {
     final BigDecimal result =
         this.analysisService.getPeRatio(TestUtils.TEST_COMMON_STOCK, new BigDecimal(100));
     // TODO: Fix expected
-    Assert.assertEquals(new BigDecimal("2.609"), result);
+    assertEquals(new BigDecimal("2.609"), result);
   }
 
   /**
@@ -192,7 +198,7 @@ public class FinancialAnalysisServiceImplTest {
         new BigInteger("2400"),
         BuySellEnum.BUY,
         new BigDecimal(1187));
-    Assert.assertEquals(
+    assertEquals(
         new BigDecimal(1222),
         this.analysisService.getVolumeWeightedStockPrice(TestUtils.TEST_COMMON_STOCK));
   }
@@ -215,7 +221,7 @@ public class FinancialAnalysisServiceImplTest {
         new BigInteger("2400"),
         BuySellEnum.BUY,
         new BigDecimal(1187));
-    Assert.assertEquals(
+    assertEquals(
         new BigDecimal(0),
         this.analysisService.getVolumeWeightedStockPrice(TestUtils.TEST_COMMON_STOCK));
   }
@@ -266,7 +272,7 @@ public class FinancialAnalysisServiceImplTest {
     this.stockService.registerStock(commonStock3);
     this.stockService.registerStock(preferStock1);
     this.stockService.registerStock(preferStock2);
-    Assert.assertEquals(new BigDecimal(2972), this.analysisService.getAllShareIndex());
+    assertEquals(new BigDecimal(2972), this.analysisService.getAllShareIndex());
   }
 
   /**
@@ -308,6 +314,6 @@ public class FinancialAnalysisServiceImplTest {
    */
   @Test(expected = BusinessException.class)
   public void testGetAllShareIndex_NoStock() {
-    Assert.assertEquals(BigDecimal.ZERO, this.analysisService.getAllShareIndex());
+    assertEquals(BigDecimal.ZERO, this.analysisService.getAllShareIndex());
   }
 }
