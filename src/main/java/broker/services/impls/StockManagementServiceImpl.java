@@ -11,7 +11,7 @@ import java.util.Map;
 @Service
 public class StockManagementServiceImpl implements StockManagementService {
 
-  private final Map<String, Stock> stockMap;
+  private Map<String, Stock> stockMap;
 
   public StockManagementServiceImpl() {
     this.stockMap = new HashMap<>();
@@ -50,5 +50,10 @@ public class StockManagementServiceImpl implements StockManagementService {
           "Cannot find the stock " + symbol + " in the market. Please register the stock first");
     }
     return stock;
+  }
+
+  @Override
+  public void flush() {
+    this.stockMap = new HashMap<>();
   }
 }

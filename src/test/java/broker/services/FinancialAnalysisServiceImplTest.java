@@ -5,11 +5,14 @@ import broker.exceptions.InvalidValueException;
 import broker.models.stocks.CommonStock;
 import broker.models.stocks.PreferredStock;
 import broker.models.trades.BuySellEnum;
+import broker.services.contracts.FinancialAnalysisService;
 import broker.services.contracts.StockManagementService;
 import broker.services.contracts.TradeService;
 import broker.services.impls.FinancialAnalysisServiceImpl;
 import broker.utils.TestUtils;
 import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,11 +28,15 @@ import static org.junit.Assert.assertEquals;
 @SpringBootTest
 public class FinancialAnalysisServiceImplTest {
 
-  @Autowired private FinancialAnalysisServiceImpl analysisService;
+  @Autowired private FinancialAnalysisService analysisService;
 
   @Autowired private StockManagementService stockService;
 
   @Autowired private TradeService tradeService;
+
+  @BeforeEach public void setup() {
+    stockService.flush();
+  }
 
   /**
    * Tests for {@link FinancialAnalysisServiceImpl#getDividendYield(String, BigDecimal)} for a

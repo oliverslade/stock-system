@@ -8,6 +8,8 @@ import broker.services.contracts.StockManagementService;
 import broker.services.impls.TradeServiceImpl;
 import broker.utils.TestUtils;
 import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,6 +27,11 @@ public class TradeServiceImplTest {
 
   @Autowired private TradeServiceImpl tradeService;
   @Autowired private StockManagementService stockService;
+
+  @BeforeEach
+  public void setup() {
+    stockService.flush();
+  }
 
   /**
    * Tests for {@link TradeServiceImpl#recordTrade(String, Date, BigInteger, BuySellEnum,

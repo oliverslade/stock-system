@@ -18,7 +18,7 @@ import java.util.List;
 @Service
 public class TradeServiceImpl implements TradeService {
 
-  @Autowired private StockManagementService stockManagementService;
+  @Autowired private StockManagementService stockService;
   @Autowired private FinancialAnalysisService financialAnalysisService;
 
   @Override
@@ -28,7 +28,7 @@ public class TradeServiceImpl implements TradeService {
       final BigInteger quantity,
       final BuySellEnum indicator,
       final BigDecimal price) {
-    final Stock stock = this.stockManagementService.getStockBySymbol(symbol);
+    final Stock stock = this.stockService.getStockBySymbol(symbol);
 
     this.financialAnalysisService.isPricePositive(price);
     this.financialAnalysisService.isPricePositive(new BigDecimal(quantity));

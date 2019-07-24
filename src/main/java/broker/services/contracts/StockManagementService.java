@@ -28,4 +28,6 @@ public interface StockManagementService {
    * @return the {@link Stock} found
    */
   Stock getStockBySymbol(String symbol);
+
+  void flush();
 }

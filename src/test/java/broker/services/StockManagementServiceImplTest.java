@@ -3,10 +3,13 @@ package broker.services;
 import broker.exceptions.BusinessException;
 import broker.models.stocks.CommonStock;
 import broker.models.stocks.Stock;
+import broker.services.contracts.StockManagementService;
 import broker.services.impls.StockManagementServiceImpl;
 import broker.utils.TestUtils;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,7 +21,13 @@ import static org.junit.Assert.assertTrue;
 @SpringBootTest
 public class StockManagementServiceImplTest {
 
-  @Autowired private StockManagementServiceImpl stockManagementService;
+  @Autowired private StockManagementService stockService;
+
+  @BeforeEach
+  public void setup() {
+    stockService.flush();
+  }
+
 
   /**
    * Tests for {@link StockManagementServiceImpl#registerStock(Stock)} )} and {@link
@@ -33,11 +42,11 @@ public class StockManagementServiceImplTest {
   @Test
   public void testRegisterAndUnregisterStock() {
     final CommonStock stock = TestUtils.getDefaultCommonStock();
-    this.stockManagementService.registerStock(stock);
+    this.stockService.registerStock(stock);
     Assert.assertEquals(
-        stock, this.stockManagementService.getAllStocks().get(TestUtils.TEST_COMMON_STOCK));
-    this.stockManagementService.deregisterStock(TestUtils.TEST_COMMON_STOCK);
-    assertTrue(this.stockManagementService.getAllStocks().isEmpty());
+        stock, this.stockService.getAllStocks().get(TestUtils.TEST_COMMON_STOCK));
+    this.stockService.deregisterStock(TestUtils.TEST_COMMON_STOCK);
+    assertTrue(this.stockService.getAllStocks().isEmpty());
   }
 
   /**
@@ -52,8 +61,8 @@ public class StockManagementServiceImplTest {
   @Test(expected = BusinessException.class)
   public void testRegisterStockDuplicated() {
     final CommonStock stock = TestUtils.getDefaultCommonStock();
-    this.stockManagementService.registerStock(stock);
-    this.stockManagementService.registerStock(stock);
+    this.stockService.registerStock(stock);
+    this.stockService.registerStock(stock);
   }
 
   /**
@@ -68,6 +77,6 @@ public class StockManagementServiceImplTest {
    */
   @Test(expected = BusinessException.class)
   public void testUnregisterStockNonExist() {
-    this.stockManagementService.deregisterStock(TestUtils.TEST_COMMON_STOCK);
+    this.stockService.deregisterStock(TestUtils.TEST_COMMON_STOCK);
   }
 }
