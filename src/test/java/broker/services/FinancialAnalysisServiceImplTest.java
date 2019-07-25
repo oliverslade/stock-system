@@ -1,5 +1,9 @@
 package broker.services;
 
+import static broker.utils.TestUtils.COMMON_STOCK;
+import static broker.utils.TestUtils.PREFERRED_STOCK;
+import static org.junit.Assert.assertEquals;
+
 import broker.exceptions.BusinessException;
 import broker.exceptions.InvalidValueException;
 import broker.models.stocks.CommonStock;
@@ -9,20 +13,15 @@ import broker.services.contracts.FinancialAnalysisService;
 import broker.services.contracts.StockManagementService;
 import broker.services.contracts.TradeService;
 import broker.utils.TestUtils;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.Date;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.Date;
-
-import static broker.utils.TestUtils.COMMON_STOCK;
-import static broker.utils.TestUtils.PREFERRED_STOCK;
-import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

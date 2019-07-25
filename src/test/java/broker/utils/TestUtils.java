@@ -2,7 +2,6 @@ package broker.utils;
 
 import broker.models.stocks.CommonStock;
 import broker.models.stocks.PreferredStock;
-
 import java.math.BigDecimal;
 
 public class TestUtils {

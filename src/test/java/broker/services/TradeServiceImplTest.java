@@ -1,5 +1,7 @@
 package broker.services;
 
+import static org.junit.Assert.assertEquals;
+
 import broker.exceptions.InvalidValueException;
 import broker.models.stocks.CommonStock;
 import broker.models.trades.BuySellEnum;
@@ -7,18 +9,15 @@ import broker.models.trades.TradeLedger;
 import broker.services.contracts.StockManagementService;
 import broker.services.impls.TradeServiceImpl;
 import broker.utils.TestUtils;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.Date;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.Date;
-
-import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

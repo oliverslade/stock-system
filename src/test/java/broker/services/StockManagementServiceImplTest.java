@@ -1,5 +1,7 @@
 package broker.services;
 
+import static org.junit.Assert.assertTrue;
+
 import broker.exceptions.BusinessException;
 import broker.models.stocks.CommonStock;
 import broker.services.contracts.StockManagementService;
@@ -11,8 +13,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

@@ -6,14 +6,13 @@ import broker.models.trades.TradeLedger;
 import broker.services.contracts.FinancialAnalysisService;
 import broker.services.contracts.StockManagementService;
 import broker.services.contracts.TradeService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class TradeServiceImpl implements TradeService {

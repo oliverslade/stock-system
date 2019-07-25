@@ -3,7 +3,6 @@ package broker.services.contracts;
 import broker.models.stocks.Stock;
 import broker.models.trades.BuySellEnum;
 import broker.models.trades.TradeLedger;
-
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
