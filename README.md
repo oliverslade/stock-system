@@ -13,3 +13,4 @@ A stock system for the Super Simple Stock Market Assignment authored by Oli Slad
 - Written in Java with Springboot
 - No database or GUI provided
 	- All data is held in memory at runtime
+- 91% Class and Method test coverage
