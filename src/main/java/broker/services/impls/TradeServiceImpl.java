@@ -2,7 +2,7 @@ package broker.services.impls;
 
 import broker.models.stocks.Stock;
 import broker.models.trades.BuySellEnum;
-import broker.models.trades.TradeRecord;
+import broker.models.trades.TradeLedger;
 import broker.services.contracts.FinancialAnalysisService;
 import broker.services.contracts.StockManagementService;
 import broker.services.contracts.TradeService;
@@ -30,20 +30,19 @@ public class TradeServiceImpl implements TradeService {
       final BigDecimal price) {
     final Stock stock = this.stockService.getStockBySymbol(symbol);
 
-    this.financialAnalysisService.isPricePositive(price);
-    this.financialAnalysisService.isPricePositive(new BigDecimal(quantity));
+    this.financialAnalysisService.isNumberPositive(price);
+    this.financialAnalysisService.isNumberPositive(new BigDecimal(quantity));
 
-    final TradeRecord record = new TradeRecord(symbol, timestamp, quantity, indicator, price);
-    stock.addTradeRecord(record);
+    final TradeLedger record = new TradeLedger(symbol, timestamp, quantity, indicator, price);
+    stock.addNewTrade(record);
   }
 
   @Override
-  public List<TradeRecord> getTradeRecordsByTime(final Stock stock, final int minutes) {
-    // TODO: LinkedList
-    final List<TradeRecord> result = new ArrayList<>();
+  public List<TradeLedger> getLast15MinutesTrades(final Stock stock) {
+    final List<TradeLedger> result = new ArrayList<>();
     final Date currentTime = new Date();
-    for (final TradeRecord record : stock.getTradeRecords()) {
-      if (currentTime.getTime() - record.getTimestamp().getTime() <= minutes * 60 * 1000) {
+    for (final TradeLedger record : stock.getTradeLedger()) {
+      if (currentTime.getTime() - record.getTimestamp().getTime() <= 15 * 60 * 1000) {
         result.add(record);
       }
     }

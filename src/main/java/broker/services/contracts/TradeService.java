@@ -2,7 +2,8 @@ package broker.services.contracts;
 
 import broker.models.stocks.Stock;
 import broker.models.trades.BuySellEnum;
-import broker.models.trades.TradeRecord;
+import broker.models.trades.TradeLedger;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
@@ -17,11 +18,10 @@ public interface TradeService {
       String symbol, Date timestamp, BigInteger quantity, BuySellEnum indicator, BigDecimal price);
 
   /**
-   * Gets the trade records of the given stock in the last given minutes.
+   * Gets the trade records of the given stock in the last 15 minutes.
    *
-   * @param stock the {@link Stock} to search
-   * @param minutes the range of the time to search
-   * @return a {@link TradeRecord}s matching the search criterion
+   * @param stock the stock to search
+   * @return the TradeLedger for the last 15 minutes
    */
-  List<TradeRecord> getTradeRecordsByTime(Stock stock, int minutes);
+  List<TradeLedger> getLast15MinutesTrades(Stock stock);
 }

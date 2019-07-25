@@ -1,6 +1,7 @@
 package broker.services.contracts;
 
 import broker.models.stocks.Stock;
+
 import java.util.Map;
 
 public interface StockManagementService {
@@ -22,12 +23,13 @@ public interface StockManagementService {
   Map<String, Stock> getAllStocks();
 
   /**
-   * Finds the {@link Stock} registered to this market with the given symbol.
+   * Finds the Stock registered with the given symbol.
    *
    * @param symbol the symbol of the stock to look up
-   * @return the {@link Stock} found
+   * @return the Stock found
    */
   Stock getStockBySymbol(String symbol);
 
+  /** Clears the HashMap containing all registered stocks */
   void flush();
 }
