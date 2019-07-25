@@ -5,7 +5,7 @@ import broker.exceptions.InvalidValueException;
 import broker.models.stocks.CommonStock;
 import broker.models.stocks.PreferredStock;
 import broker.models.stocks.Stock;
-import broker.models.trades.TradeRecord;
+import broker.models.trades.TradeLedger;
 import broker.services.contracts.FinancialAnalysisService;
 import broker.services.contracts.StockManagementService;
 import broker.services.contracts.TradeService;
@@ -17,6 +17,7 @@ import java.math.BigInteger;
 import java.util.List;
 
 import static broker.constants.ServiceConstants.PRECISION_SCALE;
+import static java.math.BigDecimal.ROUND_HALF_EVEN;
 
 @Service
 public class FinancialAnalysisServiceImpl implements FinancialAnalysisService {
@@ -29,38 +30,37 @@ public class FinancialAnalysisServiceImpl implements FinancialAnalysisService {
 
     final Stock stock = this.stockManagementService.getStockBySymbol(symbol);
 
-    this.isPricePositive(price);
+    this.isNumberPositive(price);
 
     BigDecimal result = BigDecimal.ZERO;
     if (stock instanceof CommonStock) {
       final CommonStock commonStock = (CommonStock) stock;
-      result =
-          commonStock.getLastDividend().divide(price, PRECISION_SCALE, BigDecimal.ROUND_HALF_EVEN);
+      result = commonStock.getLastDividend().divide(price, PRECISION_SCALE, ROUND_HALF_EVEN);
     } else if (stock instanceof PreferredStock) {
       final PreferredStock preferredStock = (PreferredStock) stock;
       result =
           preferredStock
               .getFixedDividend()
               .multiply(stock.getParValue())
-              .divide(price, PRECISION_SCALE, BigDecimal.ROUND_HALF_EVEN);
+              .divide(price, PRECISION_SCALE, ROUND_HALF_EVEN);
     }
 
-    return result.setScale(3, BigDecimal.ROUND_HALF_EVEN);
+    return result.setScale(3, ROUND_HALF_EVEN);
   }
 
   @Override
   public BigDecimal getPeRatio(final String symbol, final BigDecimal price) {
     final Stock stock = this.stockManagementService.getStockBySymbol(symbol);
 
-    this.isPricePositive(price);
+    this.isNumberPositive(price);
 
     final BigDecimal result;
     if (BigDecimal.ZERO.compareTo(stock.getLastDividend()) >= 0) {
       throw new BusinessException(
           "Cannot calculate P/E Ratio for the stock " + symbol + "since the dividend is ZERO.");
     }
-    result = price.divide(stock.getLastDividend(), PRECISION_SCALE, BigDecimal.ROUND_HALF_EVEN);
-    return result.setScale(3, BigDecimal.ROUND_HALF_EVEN);
+    result = price.divide(stock.getLastDividend(), PRECISION_SCALE, ROUND_HALF_EVEN);
+    return result.setScale(3, ROUND_HALF_EVEN);
   }
 
   @Override
@@ -69,25 +69,25 @@ public class FinancialAnalysisServiceImpl implements FinancialAnalysisService {
     final Stock stock = this.stockManagementService.getStockBySymbol(symbol);
 
     BigDecimal result = BigDecimal.ZERO;
-    final List<TradeRecord> tradeRecords = this.tradeService.getTradeRecordsByTime(stock, 15);
-    if (tradeRecords.isEmpty()) {
+    final List<TradeLedger> tradeLedger = this.tradeService.getLast15MinutesTrades(stock);
+    if (tradeLedger.isEmpty()) {
       return result;
     }
 
-    BigDecimal priceSum = BigDecimal.ZERO;
-    BigInteger quantitySum = BigInteger.ZERO;
+    BigDecimal runningPriceTotal = BigDecimal.ZERO;
+    BigInteger runningQuantityTotal = BigInteger.ZERO;
 
-    for (final TradeRecord record : tradeRecords) {
+    for (final TradeLedger record : tradeLedger) {
       final BigDecimal price = record.getPrice();
-      this.isPricePositive(price);
-      final BigDecimal quatity = new BigDecimal(record.getQuantity());
-      this.isPricePositive(quatity);
+      this.isNumberPositive(price);
+      final BigDecimal quantity = new BigDecimal(record.getQuantity());
+      this.isNumberPositive(quantity);
 
-      priceSum = priceSum.add(price.multiply(quatity));
-      quantitySum = quantitySum.add(record.getQuantity());
+      runningPriceTotal = runningPriceTotal.add(price.multiply(quantity));
+      runningQuantityTotal = runningQuantityTotal.add(record.getQuantity());
     }
-    result = priceSum.divide(new BigDecimal(quantitySum), PRECISION_SCALE, 3);
-    return result.setScale(0, BigDecimal.ROUND_HALF_EVEN);
+    result = runningPriceTotal.divide(new BigDecimal(runningQuantityTotal), PRECISION_SCALE, 3);
+    return result.setScale(0, ROUND_HALF_EVEN);
   }
 
   @Override
@@ -97,35 +97,36 @@ public class FinancialAnalysisServiceImpl implements FinancialAnalysisService {
     }
 
     BigDecimal accumulate = BigDecimal.ONE;
-    final int n = this.stockManagementService.getAllStocks().size();
+    final int totalNumberOfStocks = this.stockManagementService.getAllStocks().size();
 
     for (final Stock stock : this.stockManagementService.getAllStocks().values()) {
       final BigDecimal price = stock.getPrice();
-      this.isPricePositive(price);
+      this.isNumberPositive(price);
       accumulate = accumulate.multiply(price);
     }
 
-    BigDecimal x = accumulate.divide(accumulate, BigDecimal.ROUND_HALF_EVEN);
+    BigDecimal index = accumulate.divide(accumulate, ROUND_HALF_EVEN);
     BigDecimal temp;
     final BigDecimal e = new BigDecimal("0.1");
 
     do {
-      temp = x;
-      x =
-          x.add(
+      temp = index;
+      index =
+          index.add(
               accumulate
-                  .subtract(x.pow(n))
+                  .subtract(index.pow(totalNumberOfStocks))
                   .divide(
-                      new BigDecimal(n).multiply(x.pow(n - 1)),
+                      new BigDecimal(totalNumberOfStocks)
+                          .multiply(index.pow(totalNumberOfStocks - 1)),
                       PRECISION_SCALE,
-                      BigDecimal.ROUND_HALF_EVEN));
-    } while (x.subtract(temp).abs().compareTo(e) > 0);
+                      ROUND_HALF_EVEN));
+    } while (index.subtract(temp).abs().compareTo(e) > 0);
 
-    return x.setScale(0, BigDecimal.ROUND_HALF_EVEN);
+    return index.setScale(0, ROUND_HALF_EVEN);
   }
 
   @Override
-  public void isPricePositive(final BigDecimal value) {
+  public void isNumberPositive(final BigDecimal value) {
     if (value == null || BigDecimal.ZERO.compareTo(value) >= 0) {
       throw new InvalidValueException("Found non-positive value: " + value);
     }

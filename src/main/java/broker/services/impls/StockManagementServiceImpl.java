@@ -3,10 +3,9 @@ package broker.services.impls;
 import broker.exceptions.BusinessException;
 import broker.models.stocks.Stock;
 import broker.services.contracts.StockManagementService;
-import org.springframework.stereotype.Service;
-
 import java.util.HashMap;
 import java.util.Map;
+import org.springframework.stereotype.Service;
 
 @Service
 public class StockManagementServiceImpl implements StockManagementService {
@@ -54,6 +53,6 @@ public class StockManagementServiceImpl implements StockManagementService {
 
   @Override
   public void flush() {
-    this.stockMap = new HashMap<>();
+    this.stockMap.clear();
   }
 }

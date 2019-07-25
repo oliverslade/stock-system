@@ -1,6 +1,6 @@
 package broker.models.stocks;
 
-import broker.models.trades.TradeRecord;
+import broker.models.trades.TradeLedger;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ public abstract class Stock {
 
   private BigDecimal price;
 
-  private List<TradeRecord> tradeRecords;
+  private List<TradeLedger> tradeLedger;
 
   Stock(
       final String symbol,
@@ -28,10 +28,10 @@ public abstract class Stock {
     this.lastDividend = lastDividend;
     this.parValue = parValue;
     this.price = price;
-    this.tradeRecords = new ArrayList<>();
+    this.tradeLedger = new ArrayList<>();
   }
 
-  public void addTradeRecord(final TradeRecord tradeRecords) {
-    this.tradeRecords.add(tradeRecords);
+  public void addNewTrade(final TradeLedger tradeLedger) {
+    this.tradeLedger.add(tradeLedger);
   }
 }
