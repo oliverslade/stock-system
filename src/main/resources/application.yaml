@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: Super Simple Stock Market
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    shutdown:
+      enabled: true

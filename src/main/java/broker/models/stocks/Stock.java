@@ -1,18 +1,20 @@
 package broker.models.stocks;
 
 import broker.models.trades.TradeLedger;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import lombok.Data;
-
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Transient;
+import lombok.Data;
 
 @Data
 @Entity
 public abstract class Stock {
 
-  private String symbol;
+  @Id private String symbol;
 
   private BigDecimal lastDividend;
 
@@ -20,6 +22,8 @@ public abstract class Stock {
 
   private BigDecimal price;
 
+  @JsonInclude(JsonInclude.Include.NON_NULL)
+  @Transient
   private List<TradeLedger> tradeLedger;
 
   Stock(
