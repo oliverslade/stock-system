@@ -1,5 +1,15 @@
 # Super Simple Stock Market
 A stock system for the Super Simple Stock Market Assignment authored by Oli Slade
+
+## Running the tests
+The application is Springboot 2 so to run the tests: 
+- in IntelliJ:
+	- import the project using the build.gradle file (wrapper)
+	- run the build task in the gradle window or right click on the test folder and select `Run 'All Tests'`
+- via command line:
+	- Windows: cd into the application and `gradlew.bat test`
+	- Unix: cd into the application and `./gradlew test`
+
 ## Requirements
 
  - For a given stock,
